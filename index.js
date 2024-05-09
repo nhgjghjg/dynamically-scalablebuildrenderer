@@ -1,10 +1,15 @@
-function findTheDifference(s, t) {
-  let result = 0;
-  for (const char of s) {
-    result ^= char.charCodeAt(0);
+function minMeetingRoomsII(intervals) {
+  const startTimes = intervals
+    .map((interval) => interval[0])
+    .sort((a, b) => a - b);
+  const endTimes = intervals
+    .map((interval) => interval[1])
+    .sort((a, b) => a - b);
+  let rooms = 0;
+  let endIdx = 0;
+  for (let i = 0; i < startTimes.length; i++) {
+    if (startTimes[i] < endTimes[endIdx]) rooms++;
+    else endIdx++;
   }
-  for (const char of t) {
-    result ^= char.charCodeAt(0);
-  }
-  return String.fromCharCode(result);
+  return rooms;
 }
